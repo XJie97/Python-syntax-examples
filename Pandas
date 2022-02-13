@@ -1,0 +1,31 @@
+Python 3 syntax reference:
+Problem statement: confused between methods and functions in Python;
+even when I have worked out  the algorithm for solving a problem, 
+still don't remember when to use object.method or func(object), even worse when libraries introduce new classes & modules.
+
+Pandas:
+df.head()
+df.info()
+df.describe() #returns count, mean, std, min, max, 3 quantiles
+col_1minus2 = df['col1'] - df['col2'] #columns are series objects, can do vector maths
+col.max() , min, mean, median, mode, sum, describe, unique, top (most occurences), freq, value_count
+method chaining example: print(df['col1'].value_counts().loc['row_a']
+print the count of unique values in col1 which match row_a 
+print(f500["country"].value_counts().loc["China"]) #109; 109 unique companies in fortune 500 based in china
+f500['previous_rank'].value_counts().loc[0] #gets the number of companies which had 0 in previous_rank column
+df.max(numeric_only=True) #returns max values of numeric cols in df
+top5_rank_revenue.loc["Sinopec Group", "revenues"] = 999 
+.loc returns the data based on label arguments; .iloc returns the data based on index arguments
+df.loc['row_name', 'col_name'] #returns the value in row_name, col_name
+df.loc[['row_name2', 'row_name1']] #returns a dataframe containing all columns matching given rows
+
+motor_bool = f500['industry'] == 'Motor Vehicles and Parts'
+motor_countries = f500.loc[motor_bool, 'country'] #which country are the motor companies from?
+
+prev_rank_before = f500["previous_rank"].value_counts(dropna=False).head()
+f500.loc[f500['previous_rank'] == 0, 'previous_rank'] = np.nan
+prev_rank_after = f500['previous_rank'].value_counts(dropna=False).head()
+
+
+industry_usa = f500['industry'][f500['country'] == 'USA'].value_counts().head(2) #return df of top 2 industries in USA
+sector_china = f500['sector'][f500['country'] == 'China'].value_counts().head(3) #return df of top 3 sectors in China
